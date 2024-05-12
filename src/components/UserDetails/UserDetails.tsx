@@ -1,19 +1,18 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect, FormEvent } from "react";
 
 type User = {
-  id: number;
   firstName: string;
   lastName: string;
   email: string;
-  age: number;
-  phone: string;
 };
 
 const UserDetails = () => {
   const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
+
   const { userID } = useParams();
 
   const fetchUser = async () => {
@@ -30,8 +29,39 @@ const UserDetails = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user) return;
+    if (
+      user.firstName.length <= 0 ||
+      user.lastName.length <= 0 ||
+      user.email.length <= 0
+    ) {
+    }
+    try {
+      await fetch(`https://dummyjson.com/users/${userID}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
+
+      console.log(user);
+      alert("User Data Update!");
+
+      navigate("/user-list");
+    } catch (error) {}
+  };
+
+  const updateUser = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setUser(
+      (prev) =>
+        prev && {
+          ...prev,
+          [name]: value,
+        }
+    );
   };
 
   useEffect(() => {
@@ -46,15 +76,33 @@ const UserDetails = () => {
         <form onSubmit={handleSubmit}>
           <label htmlFor="first-name">
             First Name:
-            <input type="text" id="first-name" value={user.firstName} />
+            <input
+              type="text"
+              id="first-name"
+              value={user.firstName}
+              onChange={updateUser}
+              name="firstName"
+            />
           </label>
           <label htmlFor="last-name">
             Last Name:
-            <input type="text" id="last-name" value={user.lastName} />
+            <input
+              type="text"
+              id="last-name"
+              value={user.lastName}
+              onChange={updateUser}
+              name="lastName"
+            />
           </label>
           <label htmlFor="email">
             Email:
-            <input type="email" id="email" value={user.email} />
+            <input
+              type="email"
+              id="email"
+              value={user.email}
+              onChange={updateUser}
+              name="email"
+            />
           </label>
 
           <button type="submit">Edit</button>
