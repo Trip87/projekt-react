@@ -8,16 +8,15 @@ type User = {
 };
 
 const UserList = () => {
-  const [user, setUser] = useState<User[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   const fetchUsers = async () => {
     try {
       const response = await fetch("https://dummyjson.com/users");
       if (!response.ok) throw new Error("Something goes wrong!");
 
-      const data = await response.json();
-      setUser(data);
-      console.log(data);
+      const { users } = await response.json();
+      setUsers(users);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
@@ -27,7 +26,17 @@ const UserList = () => {
     fetchUsers();
   }, []);
 
-  return <div></div>;
+  return (
+    <div>
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>
+            {user.firstName} {user.lastName}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default UserList;
