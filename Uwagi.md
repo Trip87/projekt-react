@@ -8,6 +8,8 @@ Tworzenie CreatUser:
 Aktualizowanie EditUser:
 -metoda put, stworzenie inputów (pobranie wartosci uzytkownika po kliknieciu)
 
+- edytowanie danych o uzytkownikach po kliknieciu, po zmianie wartosci inputa i kliknieciu edit zmienia sie stan usera i przekierowywuje nas z powrotem na strone userlist
+
 Usuwanie Usera: - usuwanie uzytkownika, button na homepageu.
 
 Nawigacja: poruszanie sie miedzy userami ,a opcja dodaj usera.

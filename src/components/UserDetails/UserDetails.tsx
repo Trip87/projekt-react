@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect, FormEvent } from "react";
 
-type User = {
+export type User = {
   firstName: string;
   lastName: string;
   email: string;
