@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
 import Home from "./pages/Home/Home";
 import UserList from "./components/UserList/UserList";
+import UserDetails from "./components/UserDetails/UserDetails";
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
         <Route path="/" element={<Home />} />
 
         <Route path="/user-list" element={<UserList />} />
-        {/* <Route path="/userList/:userID" element={<User />} />
-        <Route path="*" element={<NotFound />} /> */}
+        <Route path="/user-list/:userID" element={<UserDetails />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   );

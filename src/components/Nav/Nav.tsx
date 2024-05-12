@@ -8,15 +8,6 @@ const Nav: React.FC = () => {
         <li>
           <Link to="/user-list">UserList</Link>
         </li>
-        <li>
-          <Link to="/user-form">UserForm</Link>
-        </li>
-        <li>
-          <Link to="/details">UserDetails</Link>
-        </li>
-        <li>
-          <Link to="/details">Nav</Link>
-        </li>
       </ul>
     </nav>
   );

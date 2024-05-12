@@ -6,7 +6,7 @@ Tworzenie CreatUser:
  -Formularz umożliwijaący dodanie, post
 
 Aktualizowanie EditUser:
--metoda put, stworzenie inputów (pobrane wartosci uzytkownika po kliknieciu)
+-metoda put, stworzenie inputów (pobranie wartosci uzytkownika po kliknieciu)
 
 Usuwanie Usera: - usuwanie uzytkownika, button na homepageu.
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 type User = {
   id: number;
@@ -29,9 +30,11 @@ const UserList = () => {
   return (
     <div>
       <ul>
-        {users.map((user, index) => (
-          <li key={index}>
-            {user.firstName} {user.lastName}
+        {users.map((user) => (
+          <li key={user.id}>
+            <Link to={`/user-list/${user.id}`}>
+              {user.firstName} {user.lastName}
+            </Link>
           </li>
         ))}
       </ul>
