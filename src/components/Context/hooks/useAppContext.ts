@@ -3,10 +3,11 @@
 
 import { useState, useEffect } from "react";
 import { User } from "../../UserDetails/UserDetails";
+import { useNavigate } from "react-router-dom";
 
 export type Data = {
-  userList: UserWithID[] ;
-  //   addUser: (user: User) => Promise<void>;
+  userList: UserWithID[];
+  addUser: (user: User) => Promise<void>;
   //   updateUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -14,7 +15,7 @@ type UserWithID = User & { id: number };
 
 export const useAppContext = (): Data => {
   const [userList, setUserList] = useState<UserWithID[]>([]);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const fetchUserList = async () => {
     try {
@@ -29,26 +30,25 @@ export const useAppContext = (): Data => {
     }
   };
 
-  //   const addUser = async (user: User) => {
-  //     //aktualizacja fetcha na prawidlowy - ma tylko dodawac uzytkownika
-  //     try {
-  //       const response = await fetch(`https://dummyjson.com/users/add`, {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({}),
-  //       });
+  const addUser = async (user: User) => {
+    //aktualizacja fetcha na prawidlowy - ma tylko dodawac uzytkownika
+    try {
+      const response = await fetch(`https://dummyjson.com/users/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user),
+      });
 
-  //       const newUser{} = await response.json();
-  //       //dodawanie uzytkownika do naszej tablicy
+      const newUser = await response.json();
+      //dodawanie uzytkownika do naszej tablicy
 
-  //       setUserList((prev) => [...prev, user]
-  //       );
+      setUserList((prev) => [...prev, newUser]);
 
-  //       alert("New User was added!");
+      alert("New User was added!");
 
-  //       navigate("/user-list");
-  //     } catch (error) {}
-  //   };
+      //   navigate("/user-list");
+    } catch (error) {}
+  };
 
   //   const updateUser = (event: React.ChangeEvent<HTMLInputElement>) => {
   //     const { name, value } = event.target;
@@ -66,5 +66,5 @@ export const useAppContext = (): Data => {
     fetchUserList();
   }, []);
 
-  return { userList };
+  return { userList, addUser };
 };

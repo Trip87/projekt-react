@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { useState, useEffect, FormEvent } from "react";
+// import UserList from "../UserList/UserList";
+import { AppContext } from "../Context/AppContext";
 
 export type User = {
   firstName: string;
@@ -10,12 +12,20 @@ export type User = {
 };
 
 const UserDetails = () => {
+  const { userList } = useContext(AppContext);
   const [user, setUser] = useState<User>();
   const navigate = useNavigate();
 
   const { userID } = useParams();
 
   const fetchUser = async () => {
+    if (userID && parseInt(userID) > 100) {
+      //pobieranie pojedynczego elementu z naszej listy uzytkownikow
+      const newUser = userList.find((user) => `${user.id}` === userID);
+      setUser(newUser);
+      return;
+      //walidacja z poziomu HTML lub w funkcji handleSabmit za pomoca if
+    }
     try {
       const response = await fetch(`https://dummyjson.com/users/${userID}`);
       if (!response.ok) throw new Error("Something goes wrong!");
