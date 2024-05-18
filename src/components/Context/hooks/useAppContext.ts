@@ -1,74 +1,70 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// import React from "react";
+// import { useNavigate } from "react-router-dom";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import { User } from "../../UserDetails/UserDetails";
 
-type Data = {
-  userList: User[];
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  updateUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  fetchUser: () => Promise<void>;
+export type Data = {
+  userList: UserWithID[] ;
+  //   addUser: (user: User) => Promise<void>;
+  //   updateUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const useAppContext = (): Data => {
-  const [user, setUser] = useState<User[]>([]);
-  const navigate = useNavigate();
+type UserWithID = User & { id: number };
 
-  const { userID } = useParams();
+export const useAppContext = (): Data => {
+  const [userList, setUserList] = useState<UserWithID[]>([]);
+  //   const navigate = useNavigate();
 
-  const fetchUser = async () => {
+  const fetchUserList = async () => {
     try {
-      const response = await fetch(`https://dummyjson.com/users/${userID}`);
+      const response = await fetch(`https://dummyjson.com/users`);
       if (!response.ok) throw new Error("Something goes wrong!");
 
-      const user = await response.json();
-      if (user) {
-        setUser(user);
-      }
+      const { users } = await response.json();
+
+      setUserList(users);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!user) return;
-    if (
-      user.firstName.length <= 0 ||
-      user.lastName.length <= 0 ||
-      user.email.length <= 0
-    ) {
-    }
-    try {
-      await fetch(`https://dummyjson.com/users/${userID}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user),
-      });
+  //   const addUser = async (user: User) => {
+  //     //aktualizacja fetcha na prawidlowy - ma tylko dodawac uzytkownika
+  //     try {
+  //       const response = await fetch(`https://dummyjson.com/users/add`, {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({}),
+  //       });
 
-      console.log(user);
-      alert("User Data Update!");
+  //       const newUser{} = await response.json();
+  //       //dodawanie uzytkownika do naszej tablicy
 
-      navigate("/user-list");
-    } catch (error) {}
-  };
+  //       setUserList((prev) => [...prev, user]
+  //       );
 
-  const updateUser = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  //       alert("New User was added!");
 
-    setUser(
-      (prev) =>
-        prev && {
-          ...prev,
-          [name]: value,
-        }
-    );
-  };
+  //       navigate("/user-list");
+  //     } catch (error) {}
+  //   };
+
+  //   const updateUser = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     const { name, value } = event.target;
+
+  //     setUser(
+  //       (prev) =>
+  //         prev && {
+  //           ...prev,
+  //           [name]: value,
+  //         }
+  //     );
+  //   };
 
   useEffect(() => {
-    fetchUser();
-  }, [userID]);
+    fetchUserList();
+  }, []);
 
-  return { userList, fetchUser, handleSubmit, updateUser };
+  return { userList };
 };
