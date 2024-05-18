@@ -12,6 +12,8 @@ type AppContextType = {
   handleSubmit: () => void;
   updateUser: () => void;
 };
+
+
 // krok 2 - tworzymy context na bazie typu
 
 export const AppContext = createContext<AppContextType>({} as AppContextType);
