@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
 
 const UserList = () => {
-  const { userList } = useContext(AppContext);
+  const { userList, deleteUser } = useContext(AppContext);
 
   return (
     <div>
@@ -14,6 +14,7 @@ const UserList = () => {
             <Link to={`/user-list/${user.id}`}>
               {user.firstName} {user.lastName}
             </Link>
+            <button onClick={() => deleteUser(user.id)}>USUŃ</button>
           </li>
         ))}
       </ul>

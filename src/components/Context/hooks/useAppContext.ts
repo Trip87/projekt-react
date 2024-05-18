@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export type Data = {
   userList: UserWithID[];
   addUser: (user: User) => Promise<void>;
+  deleteUser: (id: number) => Promise<void>;
   //   updateUser: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -27,6 +28,29 @@ export const useAppContext = (): Data => {
       setUserList(users);
     } catch (error) {
       console.error("Error fetching users:", error);
+    }
+  };
+
+  const deleteUser = async (id: number) => {
+    if (id > 100) {
+      const newUser = userList.find((user) => user.id === id);
+      setUserList((prev) => prev.filter((user) => user.id !== id));
+      return;
+    }
+    try {
+      const response = await fetch(`https://dummyjson.com/users/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Cannot delete User");
+
+      const user = await response.json();
+
+      setUserList((prev) => prev.filter((user) => user.id !== id));
+
+      alert("Uzytkownik zostal usuniety!");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -66,5 +90,5 @@ export const useAppContext = (): Data => {
     fetchUserList();
   }, []);
 
-  return { userList, addUser };
+  return { userList, addUser, deleteUser };
 };

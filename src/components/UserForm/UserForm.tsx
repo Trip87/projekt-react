@@ -13,6 +13,10 @@ const UserForm = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!user.firstName || !user.lastName || !user.email) {
+      alert("Uzupełnij poprawnie dane!");
+      return;
+    }
     addUser(user);
   };
 
@@ -32,6 +36,7 @@ const UserForm = () => {
             value={user.firstName}
             name="firstName"
             onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="last-name">
@@ -42,6 +47,7 @@ const UserForm = () => {
             value={user.lastName}
             name="lastName"
             onChange={handleChange}
+            required
           />
         </label>
         <label htmlFor="email">
@@ -52,6 +58,7 @@ const UserForm = () => {
             value={user.email}
             name="email"
             onChange={handleChange}
+            required
           />
         </label>
 

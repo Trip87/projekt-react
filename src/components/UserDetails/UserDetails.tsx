@@ -20,7 +20,6 @@ const UserDetails = () => {
 
   const fetchUser = async () => {
     if (userID && parseInt(userID) > 100) {
-      //pobieranie pojedynczego elementu z naszej listy uzytkownikow
       const newUser = userList.find((user) => `${user.id}` === userID);
       setUser(newUser);
       return;
@@ -38,6 +37,8 @@ const UserDetails = () => {
       console.error("Error fetching users:", error);
     }
   };
+
+  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
