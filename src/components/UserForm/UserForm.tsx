@@ -1,6 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { User } from "../UserDetails/UserDetails";
+import { Button, FilledInput, FormLabel } from "@mui/material";
 
 const UserForm = () => {
   const { addUser } = useContext(AppContext);
@@ -28,9 +29,9 @@ const UserForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="first-name">
+        <FormLabel htmlFor="first-name">
           First Name:
-          <input
+          <FilledInput
             type="text"
             id="first-name"
             value={user.firstName}
@@ -38,10 +39,10 @@ const UserForm = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label htmlFor="last-name">
+        </FormLabel>
+        <FormLabel htmlFor="last-name">
           Last Name:
-          <input
+          <FilledInput
             type="text"
             id="last-name"
             value={user.lastName}
@@ -49,10 +50,10 @@ const UserForm = () => {
             onChange={handleChange}
             required
           />
-        </label>
-        <label htmlFor="email">
+        </FormLabel>
+        <FormLabel htmlFor="email">
           Email:
-          <input
+          <FilledInput
             type="email"
             id="email"
             value={user.email}
@@ -60,9 +61,11 @@ const UserForm = () => {
             onChange={handleChange}
             required
           />
-        </label>
+        </FormLabel>
 
-        <button type="submit">Add User</button>
+        <Button variant="contained" type="submit">
+          Add User
+        </Button>
       </form>
     </div>
   );

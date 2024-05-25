@@ -2,7 +2,13 @@ import React, { useContext, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { AppContext } from "../Context/AppContext";
-import { IconButton, List, ListItem, ListItemText } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 
 const UserList = () => {
   const { userList, deleteUser } = useContext(AppContext);
@@ -15,7 +21,9 @@ const UserList = () => {
 
   return (
     <>
-      <button onClick={handleButtonClick}>Pokaż listę</button>
+      <Button variant="contained" onClick={handleButtonClick}>
+        Pokaż listę
+      </Button>
       {hide && (
         <div>
           <List sx={{ width: "100%", bgcolor: "background.paper" }}>
