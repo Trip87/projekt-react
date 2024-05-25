@@ -7,6 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import "./Nav.scss";
+import { useTranslation } from "react-i18next";
 
 export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -17,6 +18,7 @@ export default function BasicMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { t } = useTranslation();
 
   return (
     <div>
@@ -39,11 +41,10 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          {" "}
-          <Link to="/user-list">UserList</Link>
+          <Link to="/user-list">{t("app.nav.user-list")}</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/user-form">AddUser</Link>
+          <Link to="/user-form">{t("app.nav.add-user")}</Link>
         </MenuItem>
       </Menu>
     </div>
