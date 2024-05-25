@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Nav: React.FC = () => {
   return (
-    <nav>
+    <nav data-testid="nav-test-id">
       <ul>
         <li>
           <Link to="/user-list">UserList</Link>

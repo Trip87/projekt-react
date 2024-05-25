@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import UserList from "./components/UserList/UserList";
 import UserDetails from "./components/UserDetails/UserDetails";
 import UserForm from "./components/UserForm/UserForm";
+import { Button } from "@mui/material";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/user-list/:userID" element={<UserDetails />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
+      <Button variant="contained">Hello world</Button>
     </div>
   );
 }
